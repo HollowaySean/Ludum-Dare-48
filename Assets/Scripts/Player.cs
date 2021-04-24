@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private Vector3 velocity = Vector3.zero, 
         boostVelocity = Vector3.zero;
     private Quaternion rotation = Quaternion.identity;
+    private bool oriented = true;
 
 
     private void Start() {
@@ -60,6 +61,9 @@ public class Player : MonoBehaviour
         float turnAngle = Mathf.Clamp(angleToMouse, -turnSpeed * Time.deltaTime, turnSpeed * Time.deltaTime);
         rotation *= Quaternion.Euler(0f, 0f, turnAngle);
 
+        // Check orientation
+        oriented = mousePosition.x - transform.position.x > 0f;
+
         // Get mouse inputs
         if (Input.GetMouseButton(0)) { Attack(); }
     }
@@ -74,6 +78,11 @@ public class Player : MonoBehaviour
 
         // Rotate... rotation
         transform.rotation = rotation;
+
+        // Keep upright
+        Vector3 newScale = transform.localScale;
+        newScale.x = oriented ? Mathf.Abs(newScale.x) : -1f * Mathf.Abs(newScale.x);
+        transform.localScale = newScale;
     }
 
     private void Attack() {
