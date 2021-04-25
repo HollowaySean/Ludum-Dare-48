@@ -10,30 +10,20 @@ public class EnemyManager : MonoBehaviour
     [SerializeField]
     private Target target;
 
-    [SerializeField]
-    private int numberOfWaves;
-    [SerializeField]
-    private int[] numberOfEnemies;
-    [SerializeField]
-    private float[] sporadicity, speedMod;
-
     private List<Enemy> enemies = new List<Enemy>();
     private int currentWave = 0;
     private bool waveStarted = true;
 
+    public bool gameStarted = false;
+
     private void Update() {
 
-        // If waves remain
-        if (currentWave < numberOfWaves) {
+        // Spawn new wave if ready
+        if ((enemies.Count == 0) && waveStarted && gameStarted) {
 
-            // Spawn new wave if ready
-            if((enemies.Count == 0) && waveStarted) {
+            waveStarted = false;
+            StartCoroutine(PauseBetweenWaves());
 
-                Debug.Log("Wave defeated.");
-                waveStarted = false;
-                StartCoroutine(PauseBetweenWaves());
-
-            }
         }
     }
 
@@ -49,6 +39,7 @@ public class EnemyManager : MonoBehaviour
         newEnemy.StringIndex = newIndex;
         newEnemy.Target = target.transform.position;
         newEnemy.LettersPerHit = damageModifier;
+        newEnemy.MoveSpeed = speed;
         newEnemy.EnemyManager = this;
         
         // Add to list
@@ -64,15 +55,19 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnWave(int waveNumber) {
 
+        // Calculate properties
+        int numberOfEnemies = 4 + 2 * waveNumber;
+        float sporadicity = 2f - 0.1f * waveNumber;
+        float speedMod = 1f + 1f * waveNumber;
+
         // Loop through, spawning enemies
-        for(int i = 0; i < numberOfEnemies[waveNumber]; i++) {
+        for(int i = 0; i < numberOfEnemies; i++) {
 
             // Random delay and speed
-            float delay = Random.Range(0f, sporadicity[waveNumber]);
-            float speed = Random.Range(1f, speedMod[waveNumber]);
+            float delay = Random.Range(0f, sporadicity);
 
             // Spawn enemy, then wait
-            SpawnEnemy(speed);
+            SpawnEnemy(speedMod);
             yield return new WaitForSeconds(delay);
         }
     }

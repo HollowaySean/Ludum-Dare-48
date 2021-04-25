@@ -10,12 +10,17 @@ public class Target : MonoBehaviour
     private TMPro.TextMeshPro text;
 
     [SerializeField]
+    private Color good = Color.green, bad = Color.red;
+
+    [SerializeField]
     private ScoreCounter scoreCounter;
 
     [SerializeField]
     private float letterTime = 0.5f, failureTime = 1f, lingerTime = 1f;
 
     private bool readyForSentence = true;
+    private bool failureMode = false;
+    public bool gameStarted = false;
 
     private int currentIndex;
 
@@ -30,7 +35,7 @@ public class Target : MonoBehaviour
 
     private void Update() {
 
-        if (readyForSentence) {
+        if (readyForSentence && gameStarted) {
 
             // Set flag
             readyForSentence = false;
@@ -56,7 +61,8 @@ public class Target : MonoBehaviour
     private void HitEnemy(Enemy enemy) {
 
         // Stop deep thought coroutine, start shallow thought interruption
-        if (currentSentenceCoroutine != null) {
+        if ((currentSentenceCoroutine != null) && !failureMode) {
+            failureMode = true;
             StopCoroutine(currentSentenceCoroutine);
             StartCoroutine(RuinSentence(currentIndex, enemy.StringIndex));
         }
@@ -71,8 +77,10 @@ public class Target : MonoBehaviour
         scoreCounter.IncrementScore();
 
         // Stick around a bit before starting next
+        text.color = good;
         yield return new WaitForSeconds(lingerTime);
         readyForSentence = true;
+        text.color = Color.black;
     }
 
     private IEnumerator DrawSentence(string sentence) {
@@ -97,9 +105,12 @@ public class Target : MonoBehaviour
         // Switch to ruined string
         string ruinedString = StringTable.Combos[(deepSentence, shallowSentence)];
         text.SetText(ruinedString);
+        text.color = bad;
 
         // Linger in your shame before starting next
         yield return new WaitForSeconds(failureTime);
         readyForSentence = true;
+        failureMode = false;
+        text.color = Color.black;
     }
 }
