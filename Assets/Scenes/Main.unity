@@ -3079,7 +3079,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2410350795368480821, guid: e7a6952a74c75b548968e76cf4958761, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 377
+      value: 615.9401
       objectReference: {fileID: 0}
     - target: {fileID: 2410350795368480821, guid: e7a6952a74c75b548968e76cf4958761, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3115,11 +3115,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2410350795368480821, guid: e7a6952a74c75b548968e76cf4958761, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 644
+      value: 524.53
       objectReference: {fileID: 0}
     - target: {fileID: 2410350795368480821, guid: e7a6952a74c75b548968e76cf4958761, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 136
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2410350795368480821, guid: e7a6952a74c75b548968e76cf4958761, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3140,6 +3140,13 @@ PrefabInstance:
     - target: {fileID: 6524994384426394450, guid: e7a6952a74c75b548968e76cf4958761, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8259396676110919306, guid: e7a6952a74c75b548968e76cf4958761, type: 3}
+      propertyPath: m_text
+      value: "Your thoughts and ideas have shaken the world as we know it. An entire
+        generation is inspired by you. \n\nYou go on to live a prosperous life, and
+        die peacefully in your sleep at the age of 125, surrounded by thousands of
+        grandchildren."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7a6952a74c75b548968e76cf4958761, type: 3}
