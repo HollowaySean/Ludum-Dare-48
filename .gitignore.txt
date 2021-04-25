@@ -1,0 +1,4 @@
+/Audacity/*
+/Blender/*
+/Bosca Ceoil/*
+/SFXR/*

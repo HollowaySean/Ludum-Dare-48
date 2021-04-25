@@ -82,7 +82,9 @@ public class Player : MonoBehaviour
         // Keep upright
         Vector3 newScale = transform.localScale;
         newScale.x = oriented ? Mathf.Abs(newScale.x) : -1f * Mathf.Abs(newScale.x);
-        transform.localScale = newScale;
+        if (Time.timeScale > 0f) {
+            transform.localScale = newScale;
+        }
     }
 
     private void Attack() {
@@ -113,6 +115,7 @@ public class Player : MonoBehaviour
     private void HitEnemy(Vector3 direction) {
 
         if (vulnerable) {
+            FindObjectOfType<AudioManager>().Play("Bump");
             StartCoroutine(Knockback(direction));
         }
     }

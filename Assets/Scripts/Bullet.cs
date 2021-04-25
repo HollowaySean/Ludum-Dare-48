@@ -12,6 +12,11 @@ public class Bullet : MonoBehaviour
     private Vector3 boost = Vector3.zero;
     public Vector3 Boost { set { boost = value; } }
 
+    private void Start() {
+
+        FindObjectOfType<AudioManager>().Play("Shoot");
+    }
+
     void Update()
     {
         Vector3 velocity = (transform.up * moveSpeed + boost * boostFactor);

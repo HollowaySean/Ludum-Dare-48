@@ -43,7 +43,7 @@ public class EnemyManager : MonoBehaviour
         Enemy newEnemy = Instantiate(enemyPrototype, position, Quaternion.identity, transform);
 
         // Generate random string index
-        int newIndex = Random.Range(0, StringTable.NumShallow - 1);
+        int newIndex = Random.Range(0, StringTable.NumShallow);
 
         // Set enemy variables
         newEnemy.StringIndex = newIndex;
@@ -93,7 +93,7 @@ public class EnemyManager : MonoBehaviour
     private void SpawnEnemy(float maxSpeed) {
 
         // Tune these values
-        Vector2 spawnDistance = new Vector2(10f, 25f);
+        Vector2 spawnDistance = new Vector2(25f, 30f);
         float maxAngle = 30f;
 
         float speed = Random.Range(1f, maxSpeed);

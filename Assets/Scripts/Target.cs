@@ -36,7 +36,7 @@ public class Target : MonoBehaviour
             readyForSentence = false;
 
             // Get random sentence and begin drawing
-            currentIndex = Random.Range(0, StringTable.NumDeep - 1);
+            currentIndex = Random.Range(0, StringTable.NumDeep);
             currentSentenceCoroutine = DrawSentence(StringTable.Deep[currentIndex]);
             StartCoroutine(currentSentenceCoroutine);
         }

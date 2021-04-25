@@ -60,6 +60,7 @@ public class Enemy : MonoBehaviour
     public void SetWord(string word) {
 
         int spaceCount = 0;
+        float centerOffset = word.Length * letterSeparation / 2f;
 
         foreach(char character in word) {
 
@@ -72,7 +73,7 @@ public class Enemy : MonoBehaviour
 
                 // Offset from previous
                 newLetter.transform.localPosition +=
-                    Vector3.right * letterSeparation * spaceCount;
+                    Vector3.right * (letterSeparation * spaceCount - centerOffset);
 
                 // Set char and add to list
                 newLetter.SetLetter(character);
@@ -86,6 +87,7 @@ public class Enemy : MonoBehaviour
 
         // Check iFrame timer
         if (Time.time - iFrameTimer > iFrameTime) {
+
             for (int i = 0; i < lettersPerHit; i++) {
 
                 // Remove letter or destroy
@@ -105,13 +107,13 @@ public class Enemy : MonoBehaviour
     private void RemoveLetter() {
 
         // Call removal script and remove from list
-        int randomIndex = Random.Range(0, letters.Count - 1);
+        int randomIndex = Random.Range(0, letters.Count);
         letters[randomIndex].RemoveLetter();
         letters.RemoveAt(randomIndex);
     }
 
     public void Die() {
-
+ 
         // Tell manager to remove enemy
         enemyManager.RemoveEnemy(this);
     }
