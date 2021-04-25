@@ -10,10 +10,14 @@ public class LevelManager : MonoBehaviour
     public Player player;
     public Animator animator;
     public Target target;
+    public Camera mainCamera;
 
     private bool isPaused = false;
 
     public TMPro.TextMeshPro text;
+
+    public GameObject winText;
+    public GameObject loseText;
 
     private void Start() {
 
@@ -25,6 +29,17 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
+
+        //Debug
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            FindObjectOfType<ScoreCounter>().Score = 20;
+            EndGame();
+
+        }//Debug
+        if (Input.GetKeyDown(KeyCode.L)) {
+            EndGame();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape)) {
 
             // Toggle pause
@@ -102,5 +117,26 @@ public class LevelManager : MonoBehaviour
         }
 
         yield return null;
+    }
+
+    public void EndGame() {
+        
+        int score = FindObjectOfType<ScoreCounter>().Score;
+
+        Destroy(FindObjectOfType<EnemyManager>().gameObject);
+        Destroy(FindObjectOfType<Player>().gameObject);
+        Destroy(FindObjectOfType<ScoreCounter>().gameObject);
+        Destroy(FindObjectOfType<Target>().gameObject);
+
+        FindObjectOfType<AudioManager>().StopAll();
+
+        mainCamera.orthographic = false;
+        if (score < 10) {
+            mainCamera.transform.position += 100f * Vector3.right;
+            loseText.SetActive(true);
+        } else {
+            mainCamera.transform.position += 200f * Vector3.right;
+            winText.SetActive(true);
+        }
     }
 }

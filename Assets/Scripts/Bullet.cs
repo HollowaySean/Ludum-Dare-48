@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
+        boost = Vector3.Project(boost, transform.up);
         Vector3 velocity = (transform.up * moveSpeed + boost * boostFactor);
         transform.position += velocity * Time.deltaTime;
     }

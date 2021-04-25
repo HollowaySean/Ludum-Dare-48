@@ -15,8 +15,13 @@ public class EnemyManager : MonoBehaviour
     private bool waveStarted = true;
 
     public bool gameStarted = false;
+    public LevelManager levelManager;
 
     private void Update() {
+
+        if ((enemies.Count == 0) && (currentWave == 10)) {
+            levelManager.EndGame();
+        }
 
         // Spawn new wave if ready
         if ((enemies.Count == 0) && waveStarted && gameStarted) {
@@ -56,9 +61,9 @@ public class EnemyManager : MonoBehaviour
     private IEnumerator SpawnWave(int waveNumber) {
 
         // Calculate properties
-        int numberOfEnemies = 4 + 2 * waveNumber;
+        int numberOfEnemies = 4 + Mathf.Min(2 * waveNumber, 10);
         float sporadicity = 2f - 0.1f * waveNumber;
-        float speedMod = 1f + 1f * waveNumber;
+        float speedMod = 1f + 0.25f * waveNumber;
 
         // Loop through, spawning enemies
         for(int i = 0; i < numberOfEnemies; i++) {
